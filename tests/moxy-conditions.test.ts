@@ -108,7 +108,7 @@ describe('Moxy Conditions test suite', () => {
                 valueB: 'blah2',
             },
         ]
-        let result = testSuite.conditionsValidate(conditions)
+        const result = testSuite.conditionsValidate(conditions)
         if (typeof result !== 'boolean') {
             assert.equal(result[0].reason, 'Operator is not valid.')
             assert.equal(result[1].reason, 'Both values must be of same type')
