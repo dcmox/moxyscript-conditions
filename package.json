@@ -30,11 +30,11 @@
     "url": "git+https://github.com/dcmox/moxyscript-conditions.git"
   },
   "keywords": [
-    "debounce",
-    "retry"
+    "condition",
+    "editor"
   ],
   "author": "Daniel Moxon (dancmox@comcast.net)",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/dcmox/moxyscript-conditions/issues"
   },

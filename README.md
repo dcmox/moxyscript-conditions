@@ -1,2 +1,2 @@
 # moxyscript-conditions
-Condition Editor for MoxyScript
+MoxyScript Condition Editor

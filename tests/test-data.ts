@@ -1,4 +1,4 @@
-export const testData = {
+export const demographics = {
     users: [
         {
             age: 17,

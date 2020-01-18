@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Condition Editor Demo</title>
+        <link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="single-column.css" /> 
+        <meta property="og:image" content="https://www.site.com/thumbnail.jpg">
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="og:title" content="Condition Editor Demo" />
+		<meta property="og:description" content="Condition Editor Demo" />
+		<meta name="description" content="Condition Editor Demo" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="moxy-conditions-browser.js"></script>
+	</head>
+	<body class="home">
+        <header>
+            <h1 id="logo">Moxy<span>CE</span></h1>
+            <nav class="desktop">
+                <a href="#" class="active">Demo</a>
+            </nav>
+                        
+            <div id="search">
+                <input type="text" id="search" placeholder="Search" />
+            </div>
+            <nav class="mobile">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <a href="#"><li>Demo</li></a>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <hr />
+        <main>
+            <h3>Moxy Condition Editor Demo</h3>
+            <div>
+                <select name="field" id="field">
+                    <option value="age">age</option>
+                    <option value="alcohol_use">alcohol use</option>
+                    <option value="country">country</option>
+                    <option value="registered">registered</option>
+                    <option value="residence">residence</option>
+                    <option value="tobacco_use">tobacco use</option>
+                </select>
+                <select name="operator" id="operator">
+                    <option value="eq">equals</option>
+                    <option value="neq">not equals</option>
+                    <option value="gt">is greater than</option>
+                    <option value="lt">is less than</option>
+                    <option value="lte">is less than or equal to</option>
+                    <option value="gte">is greater than or equal to</option>
+                    <option value="between">is between</option>
+                </select>
+                <input type="text" id="value" value="" /> <input type="text" id="valueB" value="" style="display:none;" />
+                <button id="run">Run</button><button id="reset">Reset</button>
+                <br /><br />
+<pre id="data">
+{
+    age: 17,
+    alcohol_use: false,
+    country: 'US',
+    id: 1937124,
+    medical_conditions: ['diabetes'],
+    military_history: false,
+    registered: new Date('2019-05-06'),
+    residence: 'apartment',
+    tobacco_use: true,
+},
+{
+    age: 19,
+    alcohol_use: true,
+    country: 'US',
+    id: 1937125,
+    medical_conditions: [],
+    military_history: false,
+    registered: new Date('2019-09-06'),
+    residence: 'house',
+    tobacco_use: true,
+},
+{
+    age: 23,
+    alcohol_use: true,
+    country: 'US',
+    id: 1937126,
+    medical_conditions: [],
+    military_history: false,
+    registered: new Date('2019-10-08'),
+    residence: 'house',
+    tobacco_use: false,
+},
+</pre>
+<script src="ce-browser.js"></script>
+<script>
+document.getElementById('reset').onclick = () => {
+    document.getElementById('data').innerHTML = `
+{
+    age: 17,
+    alcohol_use: false,
+    country: 'US',
+    id: 1937124,
+    medical_conditions: ['diabetes'],
+    military_history: false,
+    registered: new Date('2019-05-06'),
+    residence: 'apartment',
+    tobacco_use: true,
+},
+{
+    age: 19,
+    alcohol_use: true,
+    country: 'US',
+    id: 1937125,
+    medical_conditions: [],
+    military_history: false,
+    registered: new Date('2019-09-06'),
+    residence: 'house',
+    tobacco_use: true,
+},
+{
+    age: 23,
+    alcohol_use: true,
+    country: 'US',
+    id: 1937126,
+    medical_conditions: [],
+    military_history: false,
+    registered: new Date('2019-10-08'),
+    residence: 'house',
+    tobacco_use: false,
+},
+`
+}
+</script>
+            </div>
+        </main>
+        <footer>
+            &copy; 2020 Daniel Moxon - <a href="https://github.com/dcmox/html-templates">GitHub.com</a>
+        </footer>
+    </body>
+    <!-- This demo was created by Daniel Moxon @ github.com/dcmox -->
+</html>

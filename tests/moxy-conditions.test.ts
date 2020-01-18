@@ -3,10 +3,6 @@ import sinon from 'sinon'
 import * as testSuite from '../moxy-conditions'
 import { demographics } from './test-data'
 
-// const conditionsForOffer = conditionsToString(conditions)
-// console.log('Match', itemsMatchConditions(data.users, conditionsForOffer))
-// console.log('Fail', itemsFailConditions(data.users, conditionsForOffer))
-
 describe('Moxy Conditions test suite', () => {
     it('Should not console.log (Sanitize Input)', () => {
         const conditions = [
@@ -92,33 +88,59 @@ describe('Moxy Conditions test suite', () => {
         }
         assert.notEqual(result, true, 'Passing invalid value should not evaluate to true')
     })
-    it('Should detect other invalid conditions', () => {
+    it('Should detect invalid operators and invalid date comparisons', () => {
         const conditions = [
             {
                 key: 'registered',
                 operator: 'blah',
                 value: new Date('2019-10-05'),
             },
-        ]
-        let result = testSuite.conditionsValidate(conditions)
-        if (typeof result !== 'boolean') {
-            assert.equal(result[0].reason, 'Operator is not valid.')
-        }
-        assert.notEqual(result, true, 'Passing invalid operator should not evaluate to true')
-
-        const conditionsB = [
             {
                 key: 'registered',
                 operator: 'between',
                 value: new Date('2019-10-05'),
                 valueB: 'blah',
             },
+            {
+                key: 'registered',
+                operator: 'between',
+                value: 'blah',
+                valueB: 'blah2',
+            },
         ]
-        result = testSuite.conditionsValidate(conditionsB)
+        let result = testSuite.conditionsValidate(conditions)
         if (typeof result !== 'boolean') {
-            assert.equal(result[0].reason, 'Value can only be of type Date | string | number | boolean')
+            assert.equal(result[0].reason, 'Operator is not valid.')
+            assert.equal(result[1].reason, 'Both values must be of same type')
+            assert.equal(result[2].reason, 'Between operator can only be used on Dates | numbers')
         }
-        assert.notEqual(result, true, 'Passing invalid value should not evaluate to true')
+        assert.notEqual(result, true, 'Passing invalid operator should not evaluate to true')
+    })
+    it('Should detect invalid string and string comparisons', () => {
+        const conditions = [
+            {
+                key: 'age',
+                operator: 'gt',
+                value: true,
+            },
+            {
+                key: 'age',
+                operator: 'lt',
+                value: true,
+            },
+            {
+                key: 'age',
+                operator: 'gt',
+                value: 'blah',
+            },
+        ]
+        const result = testSuite.conditionsValidate(conditions)
+        if (typeof result !== 'boolean') {
+            assert.equal(result[0].reason, 'boolean comparisons must only be eq | neq')
+            assert.equal(result[1].reason, 'boolean comparisons must only be eq | neq')
+            assert.equal(result[2].reason, 'string comparisons must only be eq | neq')
+        }
+        assert.notEqual(result, true, 'Passing invalid operator should not evaluate to true')
     })
 })
 

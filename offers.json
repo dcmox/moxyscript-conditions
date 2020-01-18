@@ -1,0 +1,3 @@
+{
+  "alcoholUsers": "(item.age < 20) && (item.alcohol_use === true)"
+}
