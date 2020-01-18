@@ -42,7 +42,7 @@ describe('Moxy Conditions test suite', () => {
         assert.equal(result[0].id, 1937125, 'ID does not match!')
     })
 
-    it('should test conditions gt and between and match case while two should fail.', () => {
+    it('Should test conditions gt and between and match case while two should fail.', () => {
         const conditions = [
             {
                 key: 'registered',
@@ -64,8 +64,35 @@ describe('Moxy Conditions test suite', () => {
         result = testSuite.itemsFailConditions(testData.users, conditionsForOffer)
         assert.equal(result.length, 2, 'Two items should fail conditions')
     })
-
-    it('should detect invalid conditions', () => {
+    it('Should detect invalid key', () => {
+        const conditions = [
+            {
+                key: '`console.log(\'test\') && (1 ',
+                operator: 'eq',
+                value: 1,
+            },
+        ]
+        const result = testSuite.conditionsValidate(conditions)
+        if (typeof result !== 'boolean') {
+            assert.equal(result[0].reason, 'Key contains unsafe character')
+        }
+        assert.notEqual(result, true, 'Passing invalid key should not evaluate to true')
+    })
+    it('Should detect invalid value', () => {
+        const conditions = [
+            {
+                key: 'age',
+                operator: 'eq',
+                value: '`console.log(\'test\')`',
+            },
+        ]
+        const result = testSuite.conditionsValidate(conditions)
+        if (typeof result !== 'boolean') {
+            assert.equal(result[0].reason, 'Value contains unsafe character')
+        }
+        assert.notEqual(result, true, 'Passing invalid value should not evaluate to true')
+    })
+    it('Should detect other invalid conditions', () => {
         const conditions = [
             {
                 key: 'registered',
