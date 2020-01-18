@@ -1,7 +1,7 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import * as testSuite from '../moxy-conditions'
-import { testData } from './test-data'
+import { demographics } from './test-data'
 
 // const conditionsForOffer = conditionsToString(conditions)
 // console.log('Match', itemsMatchConditions(data.users, conditionsForOffer))
@@ -18,7 +18,7 @@ describe('Moxy Conditions test suite', () => {
         ]
         const spyMockLog = sinon.spy(console, 'error')
         const conditionsForOffer = testSuite.conditionsToString(conditions)
-        testSuite.itemsMatchConditions(testData.users, conditionsForOffer)
+        testSuite.itemsMatchConditions(demographics.users, conditionsForOffer)
         sinon.assert.notCalled(spyMockLog)
         spyMockLog.restore()
     })
@@ -37,7 +37,7 @@ describe('Moxy Conditions test suite', () => {
             },
         ]
         const conditionsForOffer = testSuite.conditionsToString(conditions)
-        const result = testSuite.itemsMatchConditions(testData.users, conditionsForOffer)
+        const result = testSuite.itemsMatchConditions(demographics.users, conditionsForOffer)
         assert.equal(result.length, 1, 'Only one item should match')
         assert.equal(result[0].id, 1937125, 'ID does not match!')
     })
@@ -57,11 +57,11 @@ describe('Moxy Conditions test suite', () => {
             },
         ]
         const conditionsForOffer = testSuite.conditionsToString(conditions)
-        let result = testSuite.itemsMatchConditions(testData.users, conditionsForOffer)
+        let result = testSuite.itemsMatchConditions(demographics.users, conditionsForOffer)
         assert.equal(result.length, 1, 'Only one item should match')
         assert.equal(result[0].id, 1937126, 'ID does not match!')
 
-        result = testSuite.itemsFailConditions(testData.users, conditionsForOffer)
+        result = testSuite.itemsFailConditions(demographics.users, conditionsForOffer)
         assert.equal(result.length, 2, 'Two items should fail conditions')
     })
     it('Should detect invalid key', () => {

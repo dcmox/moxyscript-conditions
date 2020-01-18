@@ -5,8 +5,12 @@ export interface ICondition {
     valueB?: Date | string | number | boolean,
 }
 
-export interface IKeyValueObject {
-    [key: string]: any,
+export interface IKeyValueObject { [key: string]: any }
+
+export interface IValidationResult {
+    index: number,
+    reason?: string,
+    valid: boolean,
 }
 
 export const opMap: IKeyValueObject = {
@@ -25,24 +29,14 @@ export const funcMap = {
 export const opKeys = Object.keys(opMap)
 export const funcKeys = Object.keys(funcMap)
 
-export const REGEX_NON_SAFE_KEYS = /[^A-Z_a-z.-]/g
-
-// do conditions break security model?
-// do not operators that do not exist
-// and detect code
-
-export interface IValidationResult {
-    index: number,
-    reason?: string,
-    valid: boolean,
-}
+export const REGEX_STRIP_UNSAFE_KEYS = /[^A-Z_a-z.-]/g
 
 export const conditionsValidate = (conditions: ICondition[]): boolean | IValidationResult[] => {
     const ret: IValidationResult[] = []
     let pass: boolean = true
     conditions.forEach((cond: ICondition, index: number) => {
         let { key, operator, value, valueB } = cond
-        const keyReplaced = key.replace(REGEX_NON_SAFE_KEYS, '')
+        const keyReplaced = key.replace(REGEX_STRIP_UNSAFE_KEYS, '')
         if (keyReplaced.length !== key.length) {
             pass = false
             ret.push({index, reason: 'Key contains unsafe character', valid: false})
@@ -84,13 +78,13 @@ export const conditionsValidate = (conditions: ICondition[]): boolean | IValidat
         ret.push({index, valid: true})
     })
     return pass ? true : ret
- }
+}
 
 export const conditionsToString = (conditions: ICondition[]): string => {
     let evalString = ''
     conditions.forEach((cond: ICondition) => {
         let { key, operator, value, valueB } = cond
-        key = key.replace(REGEX_NON_SAFE_KEYS, '')
+        key = key.replace(REGEX_STRIP_UNSAFE_KEYS, '')
         if (typeof value === 'string') { value = '`' + value.replace(/`/g, '') + '`' } // Prevents Injections
         // tslint:disable no-bitwise
         if (~opKeys.indexOf(operator)) {
