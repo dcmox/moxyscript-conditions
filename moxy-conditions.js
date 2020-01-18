@@ -162,6 +162,10 @@ var ConditionEditor = /** @class */ (function () {
         });
         return true;
     };
+    ConditionEditor.prototype.toJSON = function (prettify) {
+        if (prettify === void 0) { prettify = false; }
+        return prettify ? JSON.stringify(this._condMap, null, 2) : JSON.stringify(this._condMap);
+    };
     ConditionEditor.prototype.loadConditions = function (path) {
         if (!fs.existsSync(path)) {
             return false;

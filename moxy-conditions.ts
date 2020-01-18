@@ -176,6 +176,10 @@ export class ConditionEditor {
         return true
     }
 
+    public toJSON(prettify: boolean = false): any {
+        return prettify ? JSON.stringify(this._condMap, null, 2) : JSON.stringify(this._condMap)
+    }
+
     public loadConditions(path: string): boolean {
         if (!fs.existsSync(path)) { return false }
         this._condMap = JSON.parse(fs.readFileSync(path).toString())
